@@ -1,0 +1,273 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Thiệp cưới — Đỗ Đức Mạnh & Trần Ngọc Thùy</title>
+  <meta name="description" content="Thiệp cưới online của Đỗ Đức Mạnh & Trần Ngọc Thùy" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="page">
+    <!-- Audio + controls -->
+    <audio id="bgMusic" preload="auto" aria-hidden="true"></audio>
+
+    <button id="musicToggle" class="music-toggle" aria-pressed="false" aria-label="Bật/Tắt nhạc">
+      <span id="musicIcon">♪</span>
+    </button>
+
+    <div id="tapToPlay" class="tap-overlay" aria-hidden="true" style="display:none;">
+      <button id="tapPlayBtn" class="tap-btn">💖 Chạm để mở thiệp 💖</button>
+    </div>
+
+    <!-- HERO -->
+    <header class="hero" role="banner">
+      <div class="hero-bg" aria-hidden="true"></div>
+      <div class="hero-overlay" aria-hidden="true"></div>
+
+      <div class="hero-vertical">
+        <div class="hero-col left-col">
+          <div class="vertical-name">
+            <span>Đỗ</span>
+            <span>Đức</span>
+            <span>Mạnh</span>
+          </div>
+        </div>
+
+        <div class="hero-col center-col">
+          <div class="circle-photo" aria-hidden="true">
+            <img src="assets/couple.jpg" alt="Ảnh đôi uyên ương">
+          </div>
+        </div>
+
+        <div class="hero-col right-col">
+          <div class="vertical-name">
+            <span>Trần</span>
+            <span>Thị</span>
+            <span>Thùy</span>
+          </div>
+        </div>
+
+        <!-- Invite button -->
+        <button id="inviteBtn" class="btn-invite" aria-controls="invite" aria-label="Xem thư mời">
+          <span class="invite-icon" aria-hidden="true">
+            <!-- envelope SVG -->
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <path d="M2 7.5C2 6.11929 3.11929 5 4.5 5H19.5C20.8807 5 22 6.11929 22 7.5V16.5C22 17.8807 20.8807 19 19.5 19H4.5C3.11929 19 2 17.8807 2 16.5V7.5Z" stroke="#fff" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M22 7.5L12 13L2 7.5" stroke="#fff" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </span>
+          <span class="invite-text">Thư mời</span>
+        </button>
+      </div>
+    </header>
+
+    <!-- MAIN -->
+    <main>
+      <section id="invite" class="invite" tabindex="-1" aria-labelledby="inviteTitle">
+        <h2 id="inviteTitle" class="invite-title reveal">LỜI MỜI</h2>
+
+        <p class="invite-to reveal">Gửi tới: Anh/Chị/Bạn thân mến…!</p>
+
+        <p class="invite-text reveal">
+          Sau chặng đường đồng hành đầy kỷ niệm, chúng mình – 
+          <span class="bold-names">Đức Mạnh &amp; Ngọc Thùy</span> – 
+          cuối cùng cũng “về chung một nhà” rồi đây! ❤️<br><br>
+          Ngày vui của tụi mình sẽ trọn vẹn hơn rất nhiều nếu có sự xuất hiện của bạn <br>
+          người đã luôn dõi theo, sẻ chia và ủng hộ chúng mình trong suốt thời gian qua.
+        </p>
+
+        <div class="info-cards">
+          <div class="card reveal">
+            <h3>📅 Lễ thành hôn</h3>
+            <p>⏰ <strong>Thời gian:</strong><br>10h00 — Thứ 2 — Ngày 29/12/2025 </p>
+            <p>📍 <strong>Địa điểm:</strong><br>Tư gia nhà trai — Thôn Thống Nhất, Xã Hải Lựu, Tỉnh Phú Thọ</p>
+            <p>🔗 <a href="https://maps.app.goo.gl/JSSo5p4zcx6LMaMZ7" target="_blank" rel="noopener" class="map-link">Xem Google Maps</a></p>
+            <p><strong>📞 Liên hệ:</strong><br>Hotline: 0123 456 789</p>
+          </div>
+        </div>
+
+        <!-- COUNTDOWN: chèn ngay dưới thẻ card Lễ thành hôn -->
+        <div id="weddingCountdown" class="countdown reveal" aria-live="polite">
+        <div class="cd-title">Còn</div>
+        <div class="cd-timers">
+            <div class="cd-item"><span class="cd-value" id="cd-days">0</span><span class="cd-label">Ngày</span></div>
+            <div class="cd-sep">:</div>
+            <div class="cd-item"><span class="cd-value" id="cd-hours">00</span><span class="cd-label">Giờ</span></div>
+            <div class="cd-sep">:</div>
+            <div class="cd-item"><span class="cd-value" id="cd-mins">00</span><span class="cd-label">Phút</span></div>
+            <div class="cd-sep">:</div>
+            <div class="cd-item"><span class="cd-value" id="cd-secs">00</span><span class="cd-label">Giây</span></div>
+        </div>
+        <div class="cd-note" id="cd-note" aria-hidden="true" style="display:none;">Hẹn gặp bạn ở ngày vui 🎉</div>
+        </div>
+
+
+
+
+        <!-- ================= THOUGHTS (CẢM NGHĨ) ================= -->
+        <section class="thoughts" aria-labelledby="thoughtsTitle">
+        <h3 id="thoughtsTitle" class="section-title reveal">Cảm nghĩ</h3>
+
+        <div class="thoughts-wrap">
+            <!-- Bride (cô dâu) - positioned ~1/3 from right -->
+            <article class="thought-card thought-bride reveal" aria-labelledby="brideName">
+            <div class="thumb">
+                <img src="assets/bride-small.jpg" alt="Ảnh nhỏ cô dâu">
+            </div>
+            <div class="content">
+                <div id="brideName" class="who">Trần Thị Thùy</div>
+                <p class="quote">“Mình vẫn nhớ ngày đầu gặp anh — từ đó mọi thứ như bừng sáng. Cảm ơn anh vì đã cùng mình xây đắp từng nụ cười.Mình vẫn nhớ ngày đầu gặp anh — từ đó mọi thứ như bừng sáng. Cảm ơn anh vì đã cùng mình xây đắp từng nụ cười.Mình vẫn nhớ ngày đầu gặp anh — từ đó mọi thứ như bừng sáng. Cảm ơn anh vì đã cùng mình xây đắp từng nụ cười.Mình vẫn nhớ ngày đầu gặp anh — từ đó mọi thứ như bừng sáng. Cảm ơn anh vì đã cùng mình xây đắp từng nụ cười.Mình vẫn nhớ ngày đầu gặp anh — từ đó mọi thứ như bừng sáng. Cảm ơn anh vì đã cùng mình xây đắp từng nụ cười.Mình vẫn nhớ ngày đầu gặp anh — từ đó mọi thứ như bừng sáng. Cảm ơn anh vì đã cùng mình xây đắp từng nụ cười.”</p>
+            </div>
+            </article>
+
+            <!-- Groom (chú rể) - right aligned -->
+            <article class="thought-card thought-groom reveal" aria-labelledby="groomName">
+            <div class="thumb">
+                <img src="assets/groom-small.jpg" alt="Ảnh nhỏ chú rể">
+            </div>
+            <div class="content">
+                <div id="groomName" class="who">Đỗ Đức Mạnh</div>
+                <p class="quote">“Em là người bạn cùng chìa khóa mọi kế hoạch điên rồ của anh. Mong chúng ta bước tiếp bằng cả trái tim.Mình vẫn nhớ ngày đầu gặp anh — từ đó mọi thứ như bừng sáng. Cảm ơn anh vì đã cùng mình xây đắp từng nụ cười.Mình vẫn nhớ ngày đầu gặp anh — từ đó mọi thứ như bừng sáng. Cảm ơn anh vì đã cùng mình xây đắp từng nụ cười.Mình vẫn nhớ ngày đầu gặp anh — từ đó mọi thứ như bừng sáng. Cảm ơn anh vì đã cùng mình xây đắp từng nụ cười.Mình vẫn nhớ ngày đầu gặp anh — từ đó mọi thứ như bừng sáng. Cảm ơn anh vì đã cùng mình xây đắp từng nụ cười.”</p>
+            </div>
+            </article>
+        </div>
+        </section>
+        <!-- ====================================================== -->
+
+        <!-- ===== Album ảnh (Abum Hình cưới) ===== -->
+       <section class="photo-album-fixed" aria-labelledby="albumTitle">
+        <h2 id="albumTitle" class="album-title">Abum Hình cưới</h2>
+
+        <div id="fixedAlbumGrid" class="fixed-album-grid"></div>
+       </section>
+
+       <!-- LIGHTBOX / FULLSCREEN VIEWER -->
+      <!-- LIGHTBOX -->
+      <div id="lightbox" class="lightbox" aria-hidden="true">
+        <button class="lb-close" aria-label="Đóng">✕</button>
+        <button class="lb-prev" aria-label="Ảnh trước">‹</button>
+        <button class="lb-next" aria-label="Ảnh sau">›</button>
+
+        <div class="lb-stage">
+          <img class="lb-img" src="" alt="">
+          <div class="lb-caption"></div>
+        </div>
+
+        <div class="lb-loader"></div>
+      </div>
+
+        <!-- ===== end album ===== -->
+
+      <button id="openAllBtn" class="view-all-btn">Xem tất cả Ảnh</button>
+
+      <!-- ===== Lời chúc uyên ương ===== -->
+      <section id="wishesSection" class="wishes-section reveal">
+        <h2 class="section-title">Lời chúc Uyên Ương</h2>
+
+        <form id="wishForm" class="wish-form" autocomplete="off" novalidate>
+          <div class="row">
+            <label for="wishName">Tên người chúc</label>
+            <input id="wishName" name="name" type="text" placeholder="Gọi tên bạn (ví dụ: Lan)" maxlength="60" required />
+          </div>
+
+          <div class="row">
+            <label for="wishMsg">Nội dung chúc</label>
+            <textarea id="wishMsg" name="message" placeholder="Viết lời chúc ngắn gọn, chân thành..." maxlength="800" required></textarea>
+          </div>
+
+          <div class="row actions">
+            <button id="sendWishBtn" class="btn primary" type="submit">Gửi lời chúc</button>
+            <button id="clearWishesBtn" class="btn neutral" type="button">Xóa hết (bí mật)</button>
+          </div>
+
+          <div id="wishFeedback" class="wish-feedback" aria-live="polite" style="display:none;"></div>
+        </form>
+
+
+        <!-- ============================
+          LỜI CHÚC ĐƯỢC GỬI (HIỂN THỊ)
+          =============================== -->
+        <section id="wishesSection" class="wishes-section">
+          <h2 class="section-title">💌 Lời chúc từ bạn bè</h2>
+
+          <!-- Danh sách lời chúc sẽ được render ở đây -->
+          <div id="wishesList" class="wishes-list" aria-live="polite">
+            <!-- JS sẽ tự động chèn nội dung tại đây -->
+          </div>
+        </section>
+        </div>
+      </section>
+      <script type="module">
+        import { 
+          initializeApp 
+        } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-app.js";
+
+        import { 
+          getFirestore, 
+          collection, 
+          addDoc, 
+          getDocs,
+          query, 
+          orderBy, 
+          limit, 
+          onSnapshot, 
+          serverTimestamp,
+          doc,
+          setDoc,
+          deleteDoc
+        } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore.js";
+
+        const firebaseConfig = {
+          apiKey: "AIzaSyBkgVEuc5JIRKvtVMQiCVtOQxDh3d_MBDI",
+          authDomain: "mywedding-9386a.firebaseapp.com",
+          projectId: "mywedding-9386a",
+          storageBucket: "mywedding-9386a.firebasestorage.app",
+          messagingSenderId: "914798234290",
+          appId: "1:914798234290:web:776ab0f0cdcf3d506057ab",
+          measurementId: "G-6ZW0V57MPK"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+
+        // expose để script.js dùng
+        window._firebase = { 
+          db, 
+          collection, 
+          addDoc, 
+          getDocs,
+          query, 
+          orderBy, 
+          limit, 
+          onSnapshot, 
+          serverTimestamp,
+          doc,
+          setDoc,
+          deleteDoc
+        };
+      </script>
+
+
+   
+
+
+        <p class="invite-end reveal">
+          Hy vọng bạn sẽ dành chút thời gian đến chung vui, nâng ly, cười thật tươi và lưu lại <br>
+          những khoảnh khắc đáng yêu cùng tụi mình.<br><br>
+          Sự có mặt của bạn là món quà tuyệt vời nhất cho tụi mình trong ngày đặc biệt này! 💍✨
+        </p>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <p>Made with ❤️ — Đỗ Đức Mạnh &amp; Trần Ngọc Thùy</p>
+    </footer>
+  </div>
+
+
+
+
+  <script src="script.js"></script>
+</body>
+</html>
