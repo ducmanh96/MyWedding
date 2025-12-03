@@ -335,7 +335,7 @@ body{
   color: #5b5b5b;
   margin-bottom: 1rem;
 }
-.invite-text, .invite-end{ font-size:1.08rem; line-height:1.65; color:#444; max-width:100%; margin:1rem auto; text-align:center; }
+.invite-text, .invite-end{ font-family: 'Playfair Display', serif; font-size:1.08rem; line-height:1.65; color:#444; max-width:100%; margin:1rem auto; text-align:center; }
 .bold-names{ font-family:'Rosellinda', cursive; font-size:1.4rem; color:#d14b79; }
 
 /* info cards */

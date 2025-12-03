@@ -166,7 +166,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   /* ===== ALBUM (pool, render, bind clicks) ===== */
   const folder = "assets/album/";
-  let totalImages = 9;   // adjust to actual # of files
+  let totalImages = 38;   // adjust to actual # of files
   const showCount = 9;   // 3x3
   const container = document.getElementById('fixedAlbumGrid');
   const openAllBtn = document.getElementById('openAllBtn');
@@ -570,104 +570,121 @@ document.addEventListener('DOMContentLoaded', () => {
 })();
 
 /* ===== Global hearts glyph overlay (uses ❤) ===== */
-(function initGlyphHearts(){
+/* ===== Glyph hearts overlay — mobile-friendly auto spawn (replace existing initGlyphHearts) ===== */
+(function initGlyphHearts() {
   // create overlay container once
   let overlay = document.querySelector('.hearts-overlay');
-  if(!overlay){
+  if (!overlay) {
     overlay = document.createElement('div');
     overlay.className = 'hearts-overlay';
     document.body.appendChild(overlay);
   }
 
-  const MAX_HEARTS = 60;
-  const SPAWN_INTERVAL = 900; // ms between auto spawns
-  const MOBILE_DISABLE_WIDTH = 420; // disable auto under this width
+  // detect touch / mobile-ish environment
+  const isTouch = ('ontouchstart' in window) || navigator.maxTouchPoints > 0 || navigator.userAgent.match(/Mobi|Android|iPhone|iPad/i);
+  const prefersNoHover = window.matchMedia && window.matchMedia('(hover: none)').matches;
+
+  // config: less aggressive on mobile/touch devices
+  const DEFAULT = {
+    MAX_HEARTS: 70,
+    SPAWN_INTERVAL: 900,
+  };
+  const MOBILE = {
+    MAX_HEARTS: 120,
+    SPAWN_INTERVAL: 1600,
+  };
+
+  const cfg = (isTouch || prefersNoHover) ? MOBILE : DEFAULT;
 
   const rnd = (min, max) => Math.random() * (max - min) + min;
 
   function makeGlyphHeartAt(clientX, clientY) {
     const h = document.createElement('div');
     h.className = 'glyph-heart';
-    // choose size class
     const r = Math.random();
     if (r < 0.35) h.classList.add('small');
     else if (r < 0.8) h.classList.add('med');
     else h.classList.add('large');
 
-    // glyph content
     h.textContent = '❤';
-
-    // drift horizontal and small rotate
     const drift = (Math.random() * 160 - 80).toFixed(1) + 'px';
     const rot = (Math.random() * 18 - 9).toFixed(1) + 'deg';
     h.style.setProperty('--drift', drift);
     h.style.setProperty('--rot', rot);
 
-    // clamp position inside viewport
-    const left = Math.max(8, Math.min(window.innerWidth - 28, clientX));
-    const top  = Math.max(8, Math.min(window.innerHeight - 28, clientY));
-
+    const left = Math.max(6, Math.min(window.innerWidth - 28, clientX));
+    const top = Math.max(6, Math.min(window.innerHeight - 28, clientY));
     h.style.left = left + 'px';
-    h.style.top  = top  + 'px';
+    h.style.top = top + 'px';
 
-    // random duration + delay
-    const dur = (rnd(1.4, 2.6)).toFixed(2) + 's';
+    // mobile: slightly slower & longer durations to feel smoother
+    const dur = (isTouch ? rnd(1.8, 3.0) : rnd(1.4, 2.6)).toFixed(2) + 's';
     const delay = (rnd(0, 0.18)).toFixed(2) + 's';
     h.style.animation = `glyphHeartFloat ${dur} linear ${delay} forwards`;
 
     overlay.appendChild(h);
 
-    // cleanup later
     const life = (parseFloat(dur) + parseFloat(delay)) * 1000 + 400;
     setTimeout(() => h.remove(), life);
 
-    // cap number of hearts
+    // cap count
     const existing = overlay.querySelectorAll('.glyph-heart');
-    if (existing.length > MAX_HEARTS) {
+    if (existing.length > cfg.MAX_HEARTS) {
       existing[0] && existing[0].remove();
     }
   }
 
   // auto spawn lower-center area
   let autoTimer = null;
-  function startAuto(){
-    if(window.innerWidth <= MOBILE_DISABLE_WIDTH) return;
-    if(autoTimer) return;
+  function startAuto() {
+    // ensure only auto when not extremely small (but allow most mobiles)
+    if (autoTimer) return;
+    // On low-power mobile we still allow auto but with mobile config
     autoTimer = setInterval(() => {
-      const cx = window.innerWidth * (0.25 + Math.random()*0.5);
-      const cy = window.innerHeight * (0.65 + Math.random()*0.25);
+      const cx = window.innerWidth * (0.25 + Math.random() * 0.5);
+      const cy = window.innerHeight * (0.6 + Math.random() * 0.3);
       makeGlyphHeartAt(cx, cy);
-    }, SPAWN_INTERVAL);
+    }, cfg.SPAWN_INTERVAL);
   }
-  function stopAuto(){ if(autoTimer){ clearInterval(autoTimer); autoTimer = null; } }
+  function stopAuto() {
+    if (autoTimer) { clearInterval(autoTimer); autoTimer = null; }
+  }
 
-  // initial start
+  // initial start (mobile uses lighter config)
   startAuto();
 
-  // burst on click/tap anywhere (nice interactive touch)
+  // burst on click/tap anywhere
   document.addEventListener('click', (e) => {
     const cx = e.clientX;
     const cy = e.clientY;
-    for(let i=0;i<5;i++){
-      setTimeout(()=> {
-        const dx = cx + rnd(-28,28);
-        const dy = cy + rnd(-20,20);
+    const burstCount = isTouch ? 4 : 6; // slightly smaller burst on touch
+    for (let i = 0; i < burstCount; i++) {
+      setTimeout(() => {
+        const dx = cx + rnd(-24, 24);
+        const dy = cy + rnd(-18, 18);
         makeGlyphHeartAt(dx, dy);
       }, i * 45);
     }
-  }, {passive:true});
+  }, { passive: true });
 
-  // responsive: stop auto on small widths, pause when page hidden
+  // responsiveness: toggle auto on resize or visibility change
+  let resizeTO = null;
   window.addEventListener('resize', () => {
-    if(window.innerWidth <= MOBILE_DISABLE_WIDTH) stopAuto();
-    else startAuto();
+    clearTimeout(resizeTO);
+    resizeTO = setTimeout(() => {
+      // recalc isTouch/preference if needed and restart with new cfg
+      // (simple approach: stop then restart)
+      stopAuto();
+      startAuto();
+    }, 220);
   });
-  document.addEventListener('visibilitychange', () => {
-    if(document.visibilityState === 'hidden') stopAuto();
-    else startAuto();
-  });
-})();
 
+  document.addEventListener('visibilitychange', () => {
+    if (document.visibilityState === 'hidden') stopAuto();
+    else startAuto();
+  });
+
+})();
 
 
 }); // DOMContentLoaded end
