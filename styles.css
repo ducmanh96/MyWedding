@@ -1,12 +1,214 @@
-/* styles.css — cleaned & organized */
+/* styles-yustine.css
+   Applied: Yustine Signature for decorative headings & couple names (option 1)
+   - Uses @import from OnlineWebFonts as provided.
+   - Keeps body/content fonts unchanged for readability.
+   - Drop this file into your project and merge with your existing styles.css
+     (or replace the top section). */
 
-/* ---------- FONT ---------- */
-@font-face {
-  font-family: 'Rosellinda';
-  src: url('assets/fonts/RosellindaAlyamore.ttf') format('truetype');
-  font-display: swap;
+@import url("https://db.onlinewebfonts.com/c/4f40bbba0fd10c8e33e7942df1857ed6?family=Yustine+Signature");
+/* ===== FONT GỢI Ý ===== */
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600&family=Great+Vibes&display=swap');
+
+/* ===== MẠNH - GLOBAL PATCH: fix fonts, mobile, padding 8px ===== */
+/* 1) Font stack: use decorative Yustine for headings only, keep body readable */
+:root{
+  --display-font: "Yustine Signature", "FzYustine", "Rosellinda", "Great Vibes", cursive;
+  --ui-font: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --yustine: "Yustine Signature", "Rosellinda", "Great Vibes", cursive;
+  --accent: #e76f51;
+  --muted: #6b7280;
 }
 
+
+/* 2) Global small horizontal padding so content never touches screen edges */
+html, body { min-width: 0; }
+.page, main, .invitation, .wishes-section, .info-cards { padding-left: 8px; padding-right: 8px; }
+
+/* Keep layout containers like hero full-bleed but inner columns use the 8px padding */
+.hero-vertical { padding-left: calc(20px + 0px); padding-right: calc(20px + 0px); }
+
+/* 3) Body text: readable defaults */
+body, p, li, input, textarea, button, .card, .invite-text {
+  font-family: var(--ui-font);
+  color: #333;
+  -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale;
+  line-height: 1.55;
+  font-size: 18px;
+}
+
+/* 4) Decorative headings use Yustine but tuned for consistency */
+.invite-title,
+.album-title,
+.section-title,
+.couple-names,
+.name-banner,
+.vertical-name span {
+  font-family: var(--display-font);
+  font-weight: 400;
+  letter-spacing: 0.2px;
+  line-height: 1.05;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing:antialiased;
+}
+
+/* Make vertical-name consistent and avoid huge jumps on mobile */
+.vertical-name span{
+  font-size: 45px;      /* desktop default */
+  line-height: 1;
+  display: inline-block;
+  margin: 0;
+  padding: 0;
+  white-space: nowrap;    /* avoid awkward wraps for single name tokens */
+  text-shadow: 0 6px 25px rgba(0,0,0,0.45);
+}
+
+/* 5) Headings sizing / spacing adjustments */
+.invite-title { font-size: 2.6rem; margin-bottom: .6rem; }
+.album-title { font-size: 2.2rem; margin-bottom: .8rem; }
+.section-title { font-size: 1.8rem; margin-bottom: .6rem; }
+.couple-names { font-size: 2.8rem; }
+
+/* 6) Cards / content friendly look */
+.card {
+  padding: 14px; /* more compact but readable */
+  border-radius: 12px;
+  box-shadow: 0 8px 22px rgba(0,0,0,0.06);
+  background: rgba(255,255,255,0.96);
+}
+
+/* 7) Mobile first tweaks for readability */
+@media (max-width: 1024px) {
+  body, p, li, input, textarea, button, .invite-text { font-size: 18px; }
+  .vertical-name span { font-size: 15px; }
+  .invite-title { font-size: 16px; }
+  .album-title { font-size: 1.9rem; }
+  .couple-names { font-size: 2.4rem; }
+  .card { padding: 12px; }
+}
+
+/* Small phones — ensure no wrapping & adequate line-height */
+@media (max-width: 420px){
+  body, p, li, input, textarea, button, .invite-text { font-size: 15px; line-height:1.6; }
+  .vertical-name { gap: 8px; }
+  .vertical-name span { font-size: 45px; white-space: normal; text-align:center; display:block; }
+  .invite-title { font-size: 1.8rem; }
+  .couple-names { font-size: 1.9rem; }
+  .card { padding-left: 10px; padding-right: 10px; }
+  /* make big hero not take full height on very small screens */
+  .hero { height: auto; padding: 36px 0; min-height: 60vh; }
+}
+
+/* 8) Improve contrast / spacing for small UI elements */
+.btn-invite { padding: 8px 12px; }
+.music-toggle, .gift-btn { width: 52px; height: 52px; }
+
+/* 9) Accessibility: avoid tiny tap targets — increase interactive elements on mobile */
+@media (max-width: 600px) {
+  .btn, .btn-invite, .music-toggle, .gift-btn { min-height: 44px; min-width: 44px; padding: 8px 10px; }
+}
+
+/* 10) Fix potential font-mix leftovers: force headings to use one family */
+h1, h2, h3, .invite-title, .section-title, .album-title {
+  font-family: var(--display-font), var(--ui-font);
+}
+
+/* 11) Tiny UX polish: smoother wrapping for long names */
+.bold-names { word-break: break-word; hyphens: auto; }
+
+/* End of patch */
+
+
+
+
+/* === Decorative headings & display text using Yustine Signature === */
+/* Apply to the most visual pieces only so body text remains readable */
+
+.vertical-name span,
+.invite-title,
+.couple-names,
+.name-banner,
+.brand,
+.hero .vertical-name span {
+  font-family: var(--yustine);
+  font-weight: 400;
+  letter-spacing: 0.6px;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Tuning sizes for typical decorative uses */
+.invite-title { font-size: 2.8rem; }
+.album-title { font-size: 2.5rem; }
+.couple-names { font-size: 3rem; }
+.vertical-name span { font-size: 45px; }
+
+/* Optional: subtle shadow/glow to make script fonts pop on pastel backgrounds */
+.couple-names,
+.invite-title,
+.vertical-name span {
+  text-shadow: 0 6px 18px rgba(0,0,0,0.08);
+}
+
+/* Accessibility: ensure contrast for decorative headings */
+.invite-title, .album-title, .section-title { color: #3a2b2b; }
+
+/* If you need a block style for banner names */
+.name-banner {
+  display:block;
+  text-align:center;
+  margin: 10px 0 18px;
+}
+
+/* Keep body / paragraph fonts readable */
+body, p, li, input, textarea, button {
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+}
+
+/* Small-screen adjustments so decorative fonts don't wrap awkwardly */
+@media (max-width: 768px) {
+  .couple-names { font-size: 2.2rem; }
+  .invite-title { font-size: 2.2rem; }
+  .vertical-name span { font-size: 45px; }
+}
+
+
+/* ===== VÙNG LỜI MỜI ===== */
+.invitation {
+  max-width: 650px;
+  margin: 0 auto;
+  text-align: center;
+  padding: 20px 25px;
+  color: #4a3f3f;
+  line-height: 1.6;
+}
+
+/* ===== TIÊU ĐỀ ===== */
+.invitation-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 42px;
+  font-weight: 400;
+  color: #b8845f; /* tone vàng đồng sang trọng */
+  margin-bottom: 25px;
+}
+
+/* ===== NỘI DUNG ===== */
+.invitation-text {
+  font-family: 'Playfair Display', serif;
+  font-size: 18px;
+  margin-bottom: 18px;
+  color: #5a4b4b;
+}
+
+/* ===== DÒNG KẾT ===== */
+.invitation-cta {
+  font-family: 'Playfair Display', serif;
+  font-size: 20px;
+  margin-top: 45px;
+  font-weight: 600;
+  color: #b8845f;
+}
 
 /* ---------- ROOT / GLOBAL ---------- */
 :root{
@@ -19,7 +221,7 @@
 html{scroll-behavior:smooth}
 body{
   margin:0;
-  font-family:system-ui,-apple-system,'Segoe UI',Roboto,'Helvetica Neue',Arial, sans-serif;
+  /* font-family:system-ui,-apple-system,'Segoe UI',Roboto,'Helvetica Neue',Arial, sans-serif; */
   background: linear-gradient(180deg, #fff6f8 0%, #ffeef2 45%, #ffe9ef 100%);
   color:#111;
   -webkit-font-smoothing:antialiased;
@@ -56,10 +258,10 @@ body{
 .hero-col{ flex:1; display:flex; justify-content:center; align-items:center; }
 
 /* vertical names */
-.vertical-name{ display:flex; flex-direction:column; gap:12px; color:#fff; text-align:center; }
+.vertical-name{ display:flex; flex-direction:column; gap:24px; color:#fff; text-align:center; }
 .vertical-name span{
   font-family:'Rosellinda', cursive;
-  font-size:3rem;
+  font-size:70px;
   text-shadow:0 6px 25px rgba(0,0,0,0.45);
 }
 
@@ -90,7 +292,7 @@ body{
   font-weight:600;
   font-size:0.98rem;
   text-decoration:none;
-  box-shadow:0 8px 30px rgba(2,6,23,0.12);
+  box-shadow:0 8px 45px rgba(2,6,23,0.12);
   transition: transform .14s ease, box-shadow .14s ease, background .14s ease;
   backdrop-filter: blur(6px);
 }
@@ -113,16 +315,33 @@ body{
 }
 
 /* ---------- MAIN / INVITE SECTION ---------- */
-main{ padding:0%; max-width:100%; margin:0 auto; flex:1; }
-.invite-title{ text-align:center; font-family:'Rosellinda', cursive; font-size:2.8rem; color:#333; margin-bottom:.8rem; letter-spacing:1px; }
-.invite-to{ text-align:center; font-size:1.1rem; font-weight:600; color:#5b5b5b; margin-bottom:1rem; }
+.main{ padding:0%; max-width:100%; margin:0 auto; flex:1; }
+.invite-title{
+  text-align: center;
+  font-family: 'Playfair Display', serif;
+  font-weight: 400;
+  font-size: 2.8rem; /* desktop */
+  color: #b8845f; /* elegant warm tone */
+  margin-bottom: .6rem;
+  letter-spacing: 0.4px;
+  line-height: 1.05;
+  text-rendering: optimizeLegibility;
+}
+.invite-to{
+  text-align: center;
+  font-family: 'Playfair Display', serif;
+  font-weight: 500;
+  font-size: 1.05rem;
+  color: #5b5b5b;
+  margin-bottom: 1rem;
+}
 .invite-text, .invite-end{ font-size:1.08rem; line-height:1.65; color:#444; max-width:100%; margin:1rem auto; text-align:center; }
 .bold-names{ font-family:'Rosellinda', cursive; font-size:1.4rem; color:#d14b79; }
 
 /* info cards */
 .info-cards{ display:flex; flex-wrap:wrap; gap:1.2rem; justify-content:center; text-align: center; margin:2rem 0; }
 .card{ background:#ffffffcc; padding:1.3rem 1.5rem; border-radius:14px; box-shadow:0 8px 25px rgba(0,0,0,0.08); width:100%; max-width:100%; backdrop-filter:blur(8px); }
-.card h3{ font-size:1.3rem; color:#333; margin-bottom:.6rem; }
+.card h3{ font-size:1.7rem; color:#333; margin-bottom:.6rem; }
 .card p{ margin:.4rem 0; color:#444; line-height:1.55; }
 
 /* map link */
@@ -243,7 +462,9 @@ main{ padding:0%; max-width:100%; margin:0 auto; flex:1; }
 
 
 /* ---------- THOUGHTS / CẢM NGHĨ ---------- */
-.section-title{ text-align:center; font-family:'Rosellinda', cursive; margin-top:2rem; margin-bottom:1rem; font-size:1.6rem; color:#333; }
+.section-title{ text-align:center; margin-top:2rem; margin-bottom:1rem; font-size:45px; color:#333; }
+
+
 
 .thoughts-wrap{
   position: relative;
@@ -264,7 +485,7 @@ main{ padding:0%; max-width:100%; margin:0 auto; flex:1; }
   backdrop-filter: blur(6px);
   border-radius: 12px;
   padding: 12px 14px;
-  box-shadow: 0 10px 30px rgba(15,23,42,0.06);
+  box-shadow: 0 10px 45px rgba(15,23,42,0.06);
   border: 1px solid rgba(255,255,255,0.6);
   max-width: 46%;
 }
@@ -428,10 +649,10 @@ main{ padding:0%; max-width:100%; margin:0 auto; flex:1; }
 /* TITLE */
 .album-title{
   text-align:center;
-  font-family:'Rosellinda', cursive;
+  /* font-family:'Rosellinda', cursive; */
   font-size:2.6rem;
   margin:1.6rem 0;
-  color:#333;
+
 }
 
 /* FIXED GRID 3 ROWS (ảnh cố định 360×240) */
@@ -537,11 +758,6 @@ main{ padding:0%; max-width:100%; margin:0 auto; flex:1; }
   .fixed-album-grid .album-item img { transform: none !important; transition: none !important; box-shadow: 0 8px 18px rgba(0,0,0,0.06); }
 }
 
-
-
-
-
-
 /* reveal util */
 .reveal{ opacity:0; transform:translateY(12px); transition:opacity .6s ease,transform .6s ease; }
 .reveal.show{ opacity:1; transform:translateY(0); }
@@ -557,7 +773,7 @@ main{ padding:0%; max-width:100%; margin:0 auto; flex:1; }
   z-index: 99999;
   width: 56px; height: 56px; border-radius:50%; border:none;
   background: linear-gradient(180deg, rgba(255,255,255,0.95), rgba(255,255,255,0.86));
-  box-shadow: 0 8px 30px rgba(2,6,23,0.18);
+  box-shadow: 0 8px 45px rgba(2,6,23,0.18);
   display:flex; align-items:center; justify-content:center; cursor:pointer;
   transition: box-shadow .18s ease, transform .12s ease, filter .12s ease;
   backdrop-filter: blur(6px);
@@ -566,6 +782,85 @@ main{ padding:0%; max-width:100%; margin:0 auto; flex:1; }
 .music-toggle[aria-pressed="true"]{ box-shadow: 0 14px 46px rgba(231,111,81,0.24); background: linear-gradient(180deg, rgba(255,245,240,0.98), rgba(255,235,230,0.95)); }
 .music-toggle:focus{ outline:3px solid rgba(231,111,81,0.14); outline-offset:2px; }
 #musicIcon{ font-size:20px; color:var(--accent); }
+
+/* ===== Gift floating button (góc phải) ===== */
+.gift-btn {
+  position: fixed;
+  right: 18px;
+  bottom: 18px;               /* góc phải dưới */
+  z-index: 100000;
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  border: none;
+  background: linear-gradient(180deg,#fff0f5,#ffeef7);
+  box-shadow: 0 10px 36px rgba(0,0,0,0.12);
+  display:flex; align-items:center; justify-content:center;
+  font-size:22px;
+  cursor:pointer;
+  transition: transform .12s ease, box-shadow .12s ease;
+  backdrop-filter: blur(6px);
+}
+.gift-btn:hover{ transform: translateY(-4px); box-shadow: 0 18px 46px rgba(0,0,0,0.16); }
+.gift-btn:active{ transform: translateY(-2px) scale(.99); }
+
+/* ===== Gift popup modal ===== */
+.gift-popup {
+  position: fixed;
+  inset: 0;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 110000;
+  background: rgba(0,0,0,0.55);
+  padding: 20px;
+}
+.gift-popup[aria-hidden="false"] { display: flex; }
+
+.gift-popup-panel {
+  width: min(520px, 96vw);
+  max-width: 520px;
+  background: #fff;
+  border-radius: 14px;
+  padding: 18px;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.32);
+  position: relative;
+  text-align: center;
+}
+
+.gift-close {
+  position: absolute;
+  right: 12px;
+  top: 12px;
+  border: none;
+  background: rgba(0,0,0,0.04);
+  width:36px; height:36px; border-radius:10px;
+  cursor:pointer; font-size:16px;
+}
+
+.gift-title { margin: 8px 0 12px; font-weight:700; color:#b02c63; font-size:1.05rem; }
+
+.gift-body img {
+  width: 280px;
+  height: 280px;
+  max-width: 82%;
+  object-fit: contain;
+  border-radius: 10px;
+  box-shadow: 0 18px 40px rgba(0,0,0,0.12);
+  display:block; margin: 6px auto 10px;
+}
+
+.gift-note { color:#666; font-size:0.95rem; margin-bottom:12px; }
+
+.gift-actions { display:flex; gap:10px; justify-content:center; margin-top:6px; }
+.gift-actions .btn { padding: 8px 14px; border-radius:10px; font-weight:600; }
+
+/* small screens */
+@media (max-width:420px){
+  .gift-btn { right: 12px; top: 12px; width:48px; height:48px; font-size:20px; }
+  .gift-body img { width: 200px; height:200px; }
+}
+
 
 /* overlay */
 .tap-overlay{ position:fixed; inset:0; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:12px; background:rgba(0,0,0,0.46); z-index:100000; backdrop-filter: blur(4px); padding:24px; }
@@ -576,7 +871,7 @@ main{ padding:0%; max-width:100%; margin:0 auto; flex:1; }
 @media (max-width: 768px) {
   .hero-vertical{ flex-direction:column; gap:18px; padding:28px 18px; }
   .vertical-name{ flex-direction:row; gap:10px; justify-content:center; align-items:center; flex-wrap:wrap; }
-  .vertical-name span{ display:inline-block; margin:0 6px; font-size:1.6rem; line-height:1; }
+  .vertical-name span{ display:inline-block; margin:0 6px; font-size:45px; line-height:1; }
   .circle-photo{ width:200px; height:200px; border-width:5px; }
 }
 
@@ -606,6 +901,81 @@ main{ padding:0%; max-width:100%; margin:0 auto; flex:1; }
 
 
 .lightbox.show{ display:flex !important; opacity:1 !important; }
+
+
+/* ===== Lightbox side indicators (left/right) ===== */
+/* subtle large hit-area visual + arrow glyphs; pointer-events none so JS still receives clicks */
+#lightbox::before,
+#lightbox::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  height: 100%;
+  width: 40%;
+  pointer-events: none;
+  transition: background .18s ease, opacity .18s ease;
+  opacity: 0.06; /* subtle by default */
+}
+
+/* left overlay */
+#lightbox::before {
+  left: 0;
+  background: linear-gradient(90deg, rgba(255,255,255,0.02), rgba(0,0,0,0));
+}
+
+/* right overlay */
+#lightbox::after {
+  right: 0;
+  background: linear-gradient(270deg, rgba(255,255,255,0.02), rgba(0,0,0,0));
+}
+
+/* arrow glyphs using small pseudo elements on the stage for clarity */
+#lightbox .lb-stage::before,
+#lightbox .lb-stage::after {
+  content: '‹';
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 48px;
+  line-height: 1;
+  color: rgba(255,255,255,0.18);
+  text-shadow: 0 6px 20px rgba(0,0,0,0.55);
+  pointer-events: none;
+  transition: color .12s ease, transform .12s ease, opacity .12s ease;
+  opacity: 0.8;
+}
+
+/* right arrow uses different glyph */
+#lightbox .lb-stage::after {
+  content: '›';
+  right: 18px;
+}
+#lightbox .lb-stage::before {
+  left: 18px;
+}
+
+/* hide arrows on very small screens (they can obstruct) */
+@media (max-width: 420px){
+  #lightbox .lb-stage::before,
+  #lightbox .lb-stage::after { font-size: 34px; color: rgba(255,255,255,0.12); }
+}
+
+/* on hover (desktop): make overlays stronger to hint click zones */
+@media (hover:hover){
+  #lightbox:hover::before,
+  #lightbox:hover::after { opacity: 0.12; }
+  #lightbox:hover .lb-stage::before,
+  #lightbox:hover .lb-stage::after { color: rgba(255,255,255,0.28); transform: translateY(-50%) translateX(0); }
+}
+
+/* ensure pseudo-elements don't block pointer events to real elements */
+#lightbox::before,
+#lightbox::after,
+#lightbox .lb-stage::before,
+#lightbox .lb-stage::after {
+  -webkit-user-select: none;
+  user-select: none;
+}
 
 
 /* Stage */
@@ -654,7 +1024,7 @@ main{ padding:0%; max-width:100%; margin:0 auto; flex:1; }
   transition: transform .12s ease, background .12s ease;
   font-size: 20px;
   line-height: 1;
-  box-shadow: 0 8px 30px rgba(0,0,0,0.4);
+  box-shadow: 0 8px 45px rgba(0,0,0,0.4);
 }
 
 .lb-close{ top: 18px; right: 18px; }
@@ -713,9 +1083,10 @@ main{ padding:0%; max-width:100%; margin:0 auto; flex:1; }
 }
 
 
+/* Button nằm giữa */
 .view-all-btn {
-  display: inline-block;
-  margin: 20px auto;
+  display: block;            /* đảm bảo margin auto hoạt động */
+  margin: 20px auto 0 auto;  /* căn giữa ngang */
   padding: 12px 20px;
   font-size: 16px;
   border: none;
@@ -725,6 +1096,8 @@ main{ padding:0%; max-width:100%; margin:0 auto; flex:1; }
   cursor: pointer;
   transition: 0.2s;
 }
+
+/* Hover */
 .view-all-btn:hover {
   background: #ff4f84;
   transform: scale(1.03);
@@ -732,7 +1105,7 @@ main{ padding:0%; max-width:100%; margin:0 auto; flex:1; }
 
 
 /* ===== Wishes (Lời chúc) ===== */
-.wishes-section { max-width:900px; margin: 32px auto; padding:18px; background: rgba(255,255,255,0.9); border-radius:12px; box-shadow:0 8px 30px rgba(5,10,20,0.06); }
+.wishes-section { max-width:900px; margin: 32px auto; padding:18px; background: rgba(255,255,255,0.9); border-radius:12px; box-shadow:0 8px 45px rgba(5,10,20,0.06); }
 .wishes-section .section-title{ font-family: 'Rosellinda', cursive; font-size:1.8rem; text-align:center; margin-bottom:12px; color:#333; }
 .wish-form { display:flex; flex-direction:column; gap:12px; margin-bottom:18px; }
 .wish-form .row { display:flex; flex-direction:column; gap:6px; }
@@ -761,3 +1134,144 @@ main{ padding:0%; max-width:100%; margin:0 auto; flex:1; }
   .wishes-section{ padding:12px; margin:20px; }
   .fixed-album-grid img{ width:100%; height:auto; }
 }
+
+
+#wishesList {
+  max-height: 420px;    /* Giới hạn chiều cao */
+  overflow-y: auto;     /* Tự động hiện scroll khi nội dung vượt quá */
+  padding-right: 6px;   /* Để tránh chữ đụng vào thanh scroll */
+}
+
+
+
+#wishesList::-webkit-scrollbar {
+  width: 8px;
+}
+
+#wishesList::-webkit-scrollbar-track {
+  background: #ffe6ee;
+  border-radius: 4px;
+}
+
+#wishesList::-webkit-scrollbar-thumb {
+  background: #ff7aa2;
+  border-radius: 4px;
+}
+
+#wishesList::-webkit-scrollbar-thumb:hover {
+  background: #ff4f84;
+}
+
+
+/* Hai thẻ cùng hàng, cân giữa */
+.info-cards.two-box {
+  display: flex;
+  justify-content: center;
+  align-items: stretch;
+  gap: 24px;
+  margin-top: 2rem;
+}
+
+/* Mỗi thẻ bên trái/phải */
+.card-side {
+  flex: 1;
+  max-width: 420px;
+  text-align: center;
+}
+
+/* Phân biệt nhẹ nhà gái và nhà trai (tuỳ thích) */
+.bride-card h3 {
+  color: #d14b79;
+}
+.groom-card h3 {
+  color: #b948e2;
+}
+
+/* Mobile: xếp dọc */
+@media (max-width: 768px) {
+  .info-cards.two-box {
+    flex-direction: column;
+    align-items: center;
+  }
+  .card-side {
+    max-width: 100%;
+  }
+}
+
+/* padding 8px cho đoạn invite-end (trái / phải) */
+.invite-end {
+  padding-left: 8px;
+  padding-right: 8px;
+  box-sizing: border-box; /* đảm bảo padding không làm layout tràn */
+}
+
+/* nhỏ: tăng độ dễ đọc trên mobile nếu cần */
+@media (max-width: 420px) {
+  .invite-end { padding-left: 12px; padding-right: 12px; line-height: 1.6; }
+}
+
+
+
+/* Hai title lời chúc */
+#wishesSection .section-title,
+#wishesListSection .section-title {
+  font-family: "Playfair Display", serif !important;
+  font-weight: 600;
+  color: #3a2b2b;
+  text-align: center;
+  letter-spacing: 0.3px;
+  line-height: 1.22;
+  margin: 18px 0 14px;
+  padding: 0 8px; /* tránh dính mép màn hình */
+}
+
+/* Font-size đồng đều */
+#wishesSection .section-title,
+#wishesListSection .section-title {
+  font-size: 2.1rem;
+}
+
+/* Mobile friendly */
+@media (max-width: 480px) {
+  #wishesSection .section-title,
+  #wishesListSection .section-title {
+    font-size: 1.65rem;
+    line-height: 1.28;
+    padding: 0 8px;
+  }
+}
+
+/* ===== Hearts glyph overlay (uses character "❤") ===== */
+.hearts-overlay {
+  position: fixed;
+  inset: 0;
+  pointer-events: none; /* không chặn tương tác */
+  overflow: visible;
+  z-index: 1000; /* nằm trên layout nhưng dưới modals/lightbox */
+}
+
+/* một trái tim dạng glyph */
+.hearts-overlay .glyph-heart {
+  position: absolute;
+  font-family: system-ui, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  font-weight: 700;
+  color: #ff3b6b;               /* màu chính (có thể đổi) */
+  text-shadow: 0 6px 18px rgba(0,0,0,0.12);
+  transform-origin: center center;
+  will-change: transform, opacity;
+  opacity: 1;
+  pointer-events: none;
+}
+
+/* size variants */
+.hearts-overlay .glyph-heart.small  { font-size: 12px; }
+.hearts-overlay .glyph-heart.med    { font-size: 18px; }
+.hearts-overlay .glyph-heart.large  { font-size: 28px; }
+
+/* animation: float up, drift sideways, rotate small amount, fade out */
+@keyframes glyphHeartFloat {
+  0%   { transform: translateY(0) rotate(0deg) scale(1); opacity: 1; }
+  30%  { opacity: 1; }
+  100% { transform: translateY(-180px) translateX(var(--drift,0px)) rotate(var(--rot, 6deg)) scale(0.92); opacity: 0; }
+}
+
