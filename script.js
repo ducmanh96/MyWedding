@@ -166,7 +166,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   /* ===== ALBUM (pool, render, bind clicks) ===== */
   const folder = "assets/album/";
-  let totalImages = 38;   // adjust to actual # of files
+  let totalImages = 34;   // adjust to actual # of files
   const showCount = 9;   // 3x3
   const container = document.getElementById('fixedAlbumGrid');
   const openAllBtn = document.getElementById('openAllBtn');
